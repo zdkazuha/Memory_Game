@@ -1,0 +1,75 @@
+button {
+    width: 100px;
+    height: 100px;
+}
+
+.Task2 {
+    display: flex;
+    gap: 20px;
+    flex-wrap: wrap;
+    width: 580px;
+    border: 3px solid black;
+    background-color: red;
+    height: 635px;
+    margin-left: 650px;
+}
+
+.image-wrapper {
+    position: relative;
+    width: 130px;
+    height: 140px;
+}
+
+.Task2 img {
+    width: 100%;
+    height: 100%;
+    border-radius: 10px;
+    border: 2px solid gray;
+    background-color: blue;
+    object-fit: cover;
+    transition: opacity 0.3s ease;
+}
+
+.hidden {
+    opacity: 0;
+}
+
+.overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color:gray; 
+    color: white;
+    font-weight: bold;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 10px;
+    transition: 0.3s;
+}
+
+.Task2_2 {
+    width: 583px;
+    height: 50px;
+    margin-left: 650px;
+    margin-top: 100px;
+    background-color: red;
+    color: blue;
+    border: 2px solid gray;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    
+}
+.time {
+    font-size: 50px;
+    padding-left: 100px;
+
+}
+
+.points {
+    font-size: 50px;
+    padding-left: 50px;
+}
