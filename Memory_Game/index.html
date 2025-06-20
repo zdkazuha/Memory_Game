@@ -1,28 +1,35 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Memory Game</title>
+
+    <link rel="stylesheet" href="./css/button.css">
+    <link rel="stylesheet" href="./css/cards.css">
     <link rel="stylesheet" href="./css/style.css">
+    <link rel="stylesheet" href="./css/tab.css">
+    <link rel="stylesheet" href="./css/topList.css">
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.7.7/handlebars.min.js"></script>
 </head>
 <body>
 
     <div class="game">
         <div class="tab">
             <p>Time: <span class="time">0</span></p>
-            <p>Points: <span class="points">10</span></p>
+            <p>Points: <span class="points">0</span></p>
         </div>
-        
+
         <div class="cards"></div>
     </div>
-        
+
     <div class="Show">
         <button class="showTopList">Show Top List</button>
     </div>
 
     <div class="TopList">
-
         <h2>Top List</h2>
 
         <table>
@@ -34,13 +41,33 @@
                     <th>Time</th>
                 </tr>
             </thead>
-            <tbody class="tdList">
-                
-            </tbody>
+            <tbody class="tdList"></tbody>
         </table>
     </div>
 
+    <script id="cardTemplate" type="text/x-handlebars-template">
+        <div class="card">
+            <div class="inner">
+                <div class="front">
+                    <img src="{{img}}">
+                </div>
+                <div class="back">
+                    Показати
+                </div>
+            </div>
+        </div>
+    </script>    
+
+    <script id="topListTemplate" type="text/x-handlebars-template">
+        <tr>
+            <td>{{number}}</td>
+            <td>{{name}}</td>
+            <td>{{points}}</td>
+            <td>{{time}}</td>
+        </tr>
+    </script> 
+
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <script src="./js/main.js"></script>
+    <script type="module" src="./js/main.js"></script>
 </body>
 </html>

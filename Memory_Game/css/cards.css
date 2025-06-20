@@ -1,0 +1,124 @@
+@media (max-width: 1920px) and (max-height: 1080px) {
+    .game {
+        margin-top: 65px;
+    }
+
+    .cards {
+        display: flex;
+        gap: 15px;
+        flex-wrap: wrap;
+        width: 665px;
+        height: 705px;
+        border: 3px solid white;
+        background-color: gray;
+        margin-left: 50px;
+    }
+
+    .card {
+        width: 150px;
+        height: 160px;
+        perspective: 10000px;
+        cursor: pointer;
+        position: relative;
+        margin-top: -10px
+    }
+
+    .card:nth-child(1),
+    .card:nth-child(5),
+    .card:nth-child(9),
+    .card:nth-child(13) {
+        margin-left: 10px;
+    }
+
+    .card:nth-child(1),
+    .card:nth-child(2),
+    .card:nth-child(3),
+    .card:nth-child(4) {
+        margin-top: 10px;
+    }
+        
+    .card > div {
+        width: 100%;
+        height: 100%;
+        position: absolute;
+        backface-visibility: hidden;
+        transition: transform 0.8s;
+        border-radius: 10px;
+    }
+
+    .card img {
+        width: 150px;
+        height: 160px;
+        object-fit: contain;
+        
+        border-radius: 10px;
+        border: 2px solid gray;
+        background-color: black;
+        transition: opacity 0.3s ease;
+    }
+    
+    .inner {
+        width: 100%;
+        height: 100%;
+        position: relative;
+        transition: transform 0.6s;
+        transform-style: preserve-3d;
+    }
+    
+    .front, .back {
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        backface-visibility: hidden;
+        border-radius: 10px;
+    }
+    
+    .front {
+        transform: rotateY(180deg);
+    }
+    
+    .back {
+        background: black;
+        transform: rotateY(0deg);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: white;
+        font-size: 32px;
+    }
+    
+    .card.flipped .inner {
+        transform: rotateY(180deg);
+    }
+}
+
+@media (max-width: 1366px) and (max-height: 768px) {
+    .game {
+        margin-top: 0px;
+    }
+    .cards {
+        margin-top: 0px;
+        margin-left: 0px;
+        width: 545px;
+        height: 575px;
+    }
+    .card {
+        width: 120px;
+        height: 130px;
+    }
+    .card img {
+        width: 120px;
+        height: 130px;
+    }
+    .inner {
+        width: 120px;
+        height: 130px;
+    }
+    .front, .back {
+        width: 120px;
+        height: 130px;
+    }
+    .back {
+        font-size: 24px;
+    }
+}
