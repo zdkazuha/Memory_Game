@@ -3,20 +3,28 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>09_practical_work</title>
+    <title>Memory Game</title>
     <link rel="stylesheet" href="./css/style.css">
 </head>
 <body>
 
-    <div class="tab">
-        <p>Time: <span class="time">0</span></p>
-        <p>Points: <span class="points">0</span></p>
+    <div class="game">
+        <div class="tab">
+            <p>Time: <span class="time">0</span></p>
+            <p>Points: <span class="points">10</span></p>
+        </div>
+        
+        <div class="cards"></div>
+    </div>
+        
+    <div class="Show">
+        <button class="showTopList">Show Top List</button>
     </div>
 
-    <div class="cards"></div>
-
-
     <div class="TopList">
+
+        <h2>Top List</h2>
+
         <table>
             <thead class="thList">
                 <tr>
@@ -26,12 +34,8 @@
                     <th>Time</th>
                 </tr>
             </thead>
-            <tbody class="tblist">
-                <tr>
-                    <td class="top">1</td>
-                    <td class="name">Player 1</td>
-                    <td class="points">100</td>
-                    <td class="time">00:30</td>    
+            <tbody class="tdList">
+                
             </tbody>
         </table>
     </div>

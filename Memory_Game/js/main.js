@@ -1,4 +1,25 @@
-startGame();
+let userName;
+
+window.onload = function () {
+    startGame();
+    loadTopList();
+
+    while (true) {
+        userName = prompt("Введіть ваше ім'я", "");
+
+        if (userName === null || userName.trim() === "") {
+            alert("Ім'я не може бути порожнім. Спробуйте ще раз.");
+            continue;
+        } else if (userName.length > 20) {
+            alert("Ім'я не може бути довшим за 20 символів. Спробуйте ще раз.");
+            continue;
+        } else {
+            break;
+        }
+    }
+};
+
+
 
 window.addEventListener('mousedown', (e) => {
     e.preventDefault();
@@ -8,18 +29,24 @@ window.addEventListener('dragstart', (e) => {
     e.preventDefault();
 });
 
+$(".showTopList").on("click", function () {
+    $(".TopList").toggleClass("active");
+});
 
 let arr = [];
+let arrCombo = [];
+let point = 2;
+let count = 0;
 const $fronts = $(".front *");
 
 let seconds = 0;
 let points = 0;
 
-time = setInterval(() => {
+let time = setInterval(() => {
     seconds += 1;
     $(".time").text(seconds);
 
-    if (seconds >= 100000) {
+    if (seconds >= 100) {
         clearInterval(time);
         setTimeout(() => {
             alert(`Ви програли гру, тому що час закінчився.\nВи набрали ${points} балів`);
@@ -28,52 +55,58 @@ time = setInterval(() => {
     }
 }, 1000);
 
-$(".cards").on("click", ".card", function () {
-    $(this).toggleClass("flipped");
-});
-
 let isBlocked = false;
 
-$fronts.forEach(front => {
-    let img = $(`.front > img`);
-    let back = $(".back");
+$(".cards").on("click", ".card", function () {
 
-    back.addEventListener('click', () => {
-        if (isBlocked || !img.classList.contains('flipped'))
-            return;
+    if (isBlocked ||  $(this).hasClass("flipped")) {
+        return;
+    }
 
-        img.classList.remove('flipped');
-        arr.push(img);
+    $(this).addClass("flipped");
+    arr.push($(this));
 
-        if (arr.length === 2) {
-            if (arr[0].getAttribute("src") === arr[1].getAttribute("src")) {
-                arr = [];
-                points += 2;
-                $(".points").text(points);
+    if (arr.length === 2) {
+        if (arr[0].find("img").attr("src") === arr[1].find("img").attr("src")) {
+            arr = [];
+            count++;
 
-                if (points === 16) {
-                    clearInterval(time);
-                    setTimeout(() => {
-                        alert(`Ви пройшли гру за ${seconds} секунд`);
-                        location.reload();
-                    }, 2000);
-                }
-            } else {
-                isBlocked = true;
+            arrCombo.push(true);
+            
+            if (arrCombo.length === 2) {
+                point = arrCombo[0] && arrCombo[1] ? point + 2 : 2;
+                arrCombo = [];
+            }
 
+            points += point;
+            $(".points").text(points);
+
+            if (count === 8) {
+                clearInterval(time);
                 setTimeout(() => {
-                    arr[0].classList.add('flipped');
-                    arr[0].parentElement.querySelector('.flipped').style.display = 'flex';
-
-                    arr[1].classList.add('flipped');
-                    arr[1].parentElement.querySelector('.flipped').style.display = 'flex';
-
-                    arr = [];
-                    isBlocked = false;
+                    alert(`Ви пройшли гру за ${seconds} секунд.\nВи набрали ${points} балів`);
+                    saveTopList(userName, points, seconds);
+                    location.reload();
                 }, 1000);
             }
+        } else {
+            isBlocked = true;
+
+            arrCombo.push(false);
+            if (arrCombo.length === 2) {
+                point = arrCombo[0] && arrCombo[1] ? point + 2 : 2;
+                arrCombo = [];
+            }
+
+            setTimeout(() => {
+                arr[0].removeClass("flipped");
+                arr[1].removeClass("flipped");
+                arr = [];
+                isBlocked = false;
+            }, 1000);
         }
-    });
+    }
+
 });
 
 function startGame() {
@@ -117,6 +150,45 @@ function startGame() {
         $card.append($inner);
 
         $cards.append($card);
+    });
+};
 
+function saveTopList(n, p, t ) {
+    const topList = JSON.parse(localStorage.getItem("user")) ?? [];
+    user = {
+        Name: n,
+        Points: p,
+        Time: t
+    }
+    topList.push(user);
+    topList.sort((a, b) => {
+        if (b.Points !== a.Points) {
+            return b.Points - a.Points;  
+        }
+
+        const timeA = parseInt(a.Time);  
+        const timeB = parseInt(b.Time);
+
+        return timeA - timeB; 
+    });
+
+    localStorage.setItem("user", JSON.stringify(topList.slice(0, 10)));
+    loadTopList();
+}
+function loadTopList() {
+    const topList = JSON.parse(localStorage.getItem("user")) || [];
+    const $topList = $(".tdList ");
+    $topList.empty();
+
+    topList.forEach(item => {
+        const $tr = $("<tr></tr>");
+        const $tdNumber = $("<td></td>").text(`№${topList.indexOf(item) + 1}`);
+        const $tdName = $("<td></td>").text(item.Name);
+        const $tdPoints = $("<td></td>").text(item.Points);
+        const $tdTime = $("<td></td>").text(item.Time);
+
+        $tr.append($tdNumber,$tdName, $tdPoints, $tdTime);
+
+        $topList.append($tr);
     });
 }
