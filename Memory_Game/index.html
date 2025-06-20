@@ -3,17 +3,40 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Memory Game</title>
+    <title>09_practical_work</title>
     <link rel="stylesheet" href="./css/style.css">
 </head>
 <body>
-    <div class="Task2_2">
-        <p class="time"> Time: <span class="time1">0</span></p>
-        <p class="points">Points: <span class="points1">0</span></p>
+
+    <div class="tab">
+        <p>Time: <span class="time">0</span></p>
+        <p>Points: <span class="points">0</span></p>
     </div>
-        <div class="Task2">
+
+    <div class="cards"></div>
+
+
+    <div class="TopList">
+        <table>
+            <thead class="thList">
+                <tr>
+                    <th>Top</th>
+                    <th>Player</th>
+                    <th>Points</th>
+                    <th>Time</th>
+                </tr>
+            </thead>
+            <tbody class="tblist">
+                <tr>
+                    <td class="top">1</td>
+                    <td class="name">Player 1</td>
+                    <td class="points">100</td>
+                    <td class="time">00:30</td>    
+            </tbody>
+        </table>
     </div>
-    
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="./js/main.js"></script>
 </body>
 </html>

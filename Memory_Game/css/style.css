@@ -1,75 +1,127 @@
-button {
-    width: 100px;
-    height: 100px;
-}
-
-.Task2 {
+.cards {
     display: flex;
-    gap: 20px;
+    gap: 15px;
     flex-wrap: wrap;
-    width: 580px;
-    border: 3px solid black;
-    background-color: red;
-    height: 635px;
-    margin-left: 650px;
+    width: 665px;
+    height: 705px;
+    border: 3px solid white;
+    background-color: gray;
+    margin-left: 50px;
 }
 
-.image-wrapper {
-    position: relative;
-    width: 130px;
-    height: 140px;
-}
-
-.Task2 img {
-    width: 100%;
-    height: 100%;
-    border-radius: 10px;
-    border: 2px solid gray;
-    background-color: blue;
-    object-fit: cover;
-    transition: opacity 0.3s ease;
-}
-
-.hidden {
-    opacity: 0;
-}
-
-.overlay {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-color:gray; 
-    color: white;
-    font-weight: bold;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    border-radius: 10px;
-    transition: 0.3s;
-}
-
-.Task2_2 {
-    width: 583px;
-    height: 50px;
-    margin-left: 650px;
+.tab {
+    width: 665px;
+    height: 70px;
+    margin-left: 50px;
     margin-top: 100px;
-    background-color: red;
-    color: blue;
-    border: 2px solid gray;
+    background-color: black;
+    color: white;
+    border: 3px solid white;
     display: flex;
     flex-direction: row;
     align-items: center;
+    border-bottom: none;   
+}
+
+.tab p:first-child {
+    width: 150px;
+    margin-left: 20px;
+    font-size: 32px;
+    font-weight: bold;
+}
+
+.tab p:last-child {    
+    width: 150px;
+    margin-left: 345px;
+    font-size: 32px;
+    font-weight: bold;
+}
+
+.card {
+    width: 150px;
+    height: 160px;
+    perspective: 10000px;
+    cursor: pointer;
+    position: relative;
+    margin-top: -10px
+}
+
+.card:nth-child(1),
+.card:nth-child(5),
+.card:nth-child(9),
+.card:nth-child(13) {
+    margin-left: 10px;
+}
+
+.card:nth-child(1),
+.card:nth-child(2),
+.card:nth-child(3),
+.card:nth-child(4) {
+    margin-top: 10px;
+}
     
+.card > div {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    backface-visibility: hidden;
+    transition: transform 0.8s;
+    border-radius: 10px;
 }
-.time {
-    font-size: 50px;
-    padding-left: 100px;
 
+.card img {
+    width: 150px;
+    height: 160px;
+    object-fit: contain;
+    
+    border-radius: 10px;
+    border: 2px solid gray;
+    background-color: black;
+    transition: opacity 0.3s ease;
+}
+  
+.inner {
+    width: 100%;
+    height: 100%;
+    position: relative;
+    transition: transform 0.6s;
+    transform-style: preserve-3d;
+}
+  
+.front, .back {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    backface-visibility: hidden;
+    border-radius: 10px;
+}
+  
+.front {
+    transform: rotateY(180deg);
+}
+  
+.back {
+    background: black;
+    transform: rotateY(0deg);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-size: 32px;
+}
+  
+.card.flipped .inner {
+    transform: rotateY(180deg);
 }
 
-.points {
-    font-size: 50px;
-    padding-left: 50px;
+.TopList {
+    width: 335px;
+    height: 300px;
+    margin-left: 50px;
+    margin-top: 20px;
+    background-color: black;
+    color: white;
+    border: 3px solid white;
+    display: flex;
+    flex-direction: row;
 }

@@ -1,30 +1,25 @@
-// let p = document.querySelector(".Task1 p");
-
-// function updateTime() {
-//     let date = new Date().toLocaleTimeString();
-//     p.textContent = date;
-// }
-
-// updateTime(); 
-
-// setTimeout(() => {
-//     location.reload(); 
-// }, 1000);
-
-
 startGame();
 
+window.addEventListener('mousedown', (e) => {
+    e.preventDefault();
+});
+
+window.addEventListener('dragstart', (e) => {
+    e.preventDefault();
+});
+
+
 let arr = [];
-let wrappers = document.querySelectorAll('.image-wrapper');
+const $fronts = $(".front *");
 
 let seconds = 0;
 let points = 0;
 
 time = setInterval(() => {
     seconds += 1;
-    document.querySelector(".time1").textContent = seconds;
+    $(".time").text(seconds);
 
-    if (seconds >= 60) {
+    if (seconds >= 100000) {
         clearInterval(time);
         setTimeout(() => {
             alert(`Ви програли гру, тому що час закінчився.\nВи набрали ${points} балів`);
@@ -33,25 +28,28 @@ time = setInterval(() => {
     }
 }, 1000);
 
+$(".cards").on("click", ".card", function () {
+    $(this).toggleClass("flipped");
+});
 
 let isBlocked = false;
 
-wrappers.forEach(wrapper => {
-    let img = wrapper.querySelector('img');
-    let overlay = wrapper.querySelector('.overlay');
+$fronts.forEach(front => {
+    let img = $(`.front > img`);
+    let back = $(".back");
 
-    overlay.addEventListener('click', () => {
-        if (isBlocked || !img.classList.contains('hidden')) return;
+    back.addEventListener('click', () => {
+        if (isBlocked || !img.classList.contains('flipped'))
+            return;
 
-        img.classList.remove('hidden');
-        overlay.style.display = 'none';
+        img.classList.remove('flipped');
         arr.push(img);
 
         if (arr.length === 2) {
             if (arr[0].getAttribute("src") === arr[1].getAttribute("src")) {
                 arr = [];
                 points += 2;
-                document.querySelector(".points1").textContent = points;
+                $(".points").text(points);
 
                 if (points === 16) {
                     clearInterval(time);
@@ -64,11 +62,11 @@ wrappers.forEach(wrapper => {
                 isBlocked = true;
 
                 setTimeout(() => {
-                    arr[0].classList.add('hidden');
-                    arr[0].parentElement.querySelector('.overlay').style.display = 'flex';
+                    arr[0].classList.add('flipped');
+                    arr[0].parentElement.querySelector('.flipped').style.display = 'flex';
 
-                    arr[1].classList.add('hidden');
-                    arr[1].parentElement.querySelector('.overlay').style.display = 'flex';
+                    arr[1].classList.add('flipped');
+                    arr[1].parentElement.querySelector('.flipped').style.display = 'flex';
 
                     arr = [];
                     isBlocked = false;
@@ -78,17 +76,16 @@ wrappers.forEach(wrapper => {
     });
 });
 
-
 function startGame() {
     let images = [
-        "Food_C240-128.png",
         "Food_C203-128.png",
         "Food_C205-128.png",
-        "Food_C238-128.png",
-        "Food_C245-128.png",
-        "Food_C225-128.png",
         "Food_C217-128.png",
-        "Food_C235-128.png"
+        "Food_C225-128.png",
+        "Food_C235-128.png",
+        "Food_C238-128.png",
+        "Food_C240-128.png",
+        "Food_C245-128.png",
     ];
 
     let allImages = [...images, ...images];
@@ -98,23 +95,28 @@ function startGame() {
         [allImages[i], allImages[j]] = [allImages[j], allImages[i]];
     }
 
-    let task2 = document.querySelector(".Task2");
-    task2.innerHTML = "";
+    const $cards = $(".cards");
+    $cards.empty();
 
     allImages.forEach(src => {
-        let wrapper = document.createElement("div");
-        wrapper.classList.add("image-wrapper");
 
-        let img = document.createElement("img");
-        img.src = `./img/${src}`;
-        img.classList.add("hidden", "aplle");
+        const $card = $("<div class='card'></div>");
 
-        let overlay = document.createElement("div");
-        overlay.classList.add("overlay");
-        overlay.textContent = "Показати";
+        const $inner = $("<div class='inner'></div>");
 
-        wrapper.appendChild(img);
-        wrapper.appendChild(overlay);
-        task2.appendChild(wrapper);
+        const $front = $("<div class='front'></div>");
+
+        const $img = $(`<img src="./img/${src}">`);
+
+        const $back = $("<div class='back'>Показати</div>");
+
+        $front.append($img);
+        $inner.append($front);
+        $inner.append($back);
+
+        $card.append($inner);
+
+        $cards.append($card);
+
     });
 }
